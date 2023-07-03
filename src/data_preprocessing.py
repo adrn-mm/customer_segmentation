@@ -4,7 +4,7 @@ import re
 from sklearn. preprocessing import StandardScaler
 
 # Import Dataset
-df = pd.read_csv(r"D:\Personal Projects\Customer Segmentation and Scraping\customer_segmentation\data\raw\bank_transactions.csv.zip")
+df = pd.read_csv(r"D:\Personal Projects\customer_segmentation\data\dataset.csv")
 
 """
 Data Preparation Steps
@@ -58,9 +58,6 @@ MRF_df.drop(columns=["TransactionDateFirst",
                      inplace=True)
 MRF_df = MRF_df.reset_index(drop=True)
 
-# the data is very very big so I will use only 10000 rows
-MRF_df = MRF_df.sample(n=10000,random_state=42).reset_index(drop=True)
-
 """
 Data Preprocessing Steps
 """
@@ -70,7 +67,7 @@ MRF_df["CustGender"].fillna(MRF_df["CustGender"].mode()[0], inplace=True)
 MRF_df["CustomerAge"].fillna(MRF_df["CustomerAge"].median(), inplace=True)
 MRF_df["CustAccountBalance"].fillna(MRF_df["CustAccountBalance"].median(), inplace=True)
 
-# Encode categorica data
+# Encode categorical data
 MRF_df['CustGender']=MRF_df['CustGender'].map({'M':1,'F':0})
 
 # Handling negative values
@@ -94,5 +91,5 @@ df_scaled.head()
 DF to CSV
 """
 # Create a CSV file
-filepath = r'D:\Personal Projects\Customer Segmentation and Scraping\customer_segmentation\data\processed\processed_data.csv'
+filepath = r'D:\Personal Projects\customer_segmentation\data\processed_data.csv'
 df_scaled.to_csv(filepath, index=False)

@@ -2,9 +2,11 @@
 from sklearn.cluster import KMeans
 import plotly.express as px
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
 
 # Import Cleaned Dataset
-df = pd.read_csv(r"D:\Personal Projects\Customer Segmentation and Scraping\customer_segmentation\data\processed\processed_data.csv")
+df = pd.read_csv(r"D:\Personal Projects\customer_segmentation\data\processed_data.csv")
 
 # Modellin K-Means with K=6
 kmeans = KMeans(n_clusters=6)    
