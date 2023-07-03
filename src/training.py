@@ -2,18 +2,22 @@
 from sklearn.cluster import KMeans
 import plotly.express as px
 import pandas as pd
+import pickle
 import warnings
 warnings.filterwarnings("ignore")
 
 # Import Cleaned Dataset
 df = pd.read_csv(r"D:\Personal Projects\customer_segmentation\data\processed_data.csv")
 
-# Modellin K-Means with K=6
-kmeans = KMeans(n_clusters=6)    
-kmeans.fit(df)
-df['Label']=kmeans.labels_
+# K-Means with K=6
+kmeans = KMeans(n_clusters=6, random_state=0)    
+preds = kmeans.fit_predict(df)
+df['Label'] = preds
 
-# Cluster analysis
+# Save the model
+pickle.dump(preds, open(r"D:\Personal Projects\customer_segmentation\models\clustering_kmeans.pkl", 'wb'))
+
+# Visualize cluster charateristics
 def plot_cluster(n_cluster):
     cluster = df[df['Label']==n_cluster].loc[:,:"Recency"]
 
@@ -22,7 +26,7 @@ def plot_cluster(n_cluster):
                         theta = cluster.columns.tolist(),
                         line_close = True)
     fig.update_layout(
-        title="Cluster {}".format(n_cluster),
+        title="Cluster {}".format(n_cluster+1),
     )
     fig.show()
 
