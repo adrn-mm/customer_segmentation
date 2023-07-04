@@ -88,8 +88,12 @@ df_scaled = StandardScaler().fit_transform(MRF_df)
 df_scaled=pd.DataFrame(df_scaled,columns=MRF_df.columns)
 df_scaled.head()
 
+# remap gender column
+MRF_df['CustGender'] = MRF_df['CustGender'].map({1:'M',0:'F'})
+
 """
 DF to CSV
 """
 # Create a CSV file
-df_scaled.to_csv(os.getcwd() + '\data\processed_data.csv', index=False)
+MRF_df.to_csv(os.getcwd() + '\data\cleaned_data.csv', index=False)
+df_scaled.to_csv(os.getcwd() + '\data\standardized_data.csv', index=False)
