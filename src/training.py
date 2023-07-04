@@ -33,3 +33,15 @@ def plot_cluster(n_cluster):
 
 for i in range(0,6):
     plot_cluster(i)
+
+# change the cluster label order
+change_order = {0:1, 1:2, 2:3, 3:4, 4:5, 5:6}
+df['Label'] = df['Label'].replace(change_order)
+
+# saving cluster df to csv
+output_directory = os.getcwd() + '/data/clusters/'
+for label in range(1, 7):
+    cluster = df[df['Label'] == label]
+    file_path = f"{output_directory}cluster_{label}.csv"
+    cluster.to_csv(file_path, index=False)
+    print(f"Saved cluster {label} to {file_path}")
