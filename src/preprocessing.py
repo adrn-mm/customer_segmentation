@@ -2,9 +2,10 @@
 import pandas as pd
 import re
 from sklearn. preprocessing import StandardScaler
+import os
 
 # Import Dataset
-df = pd.read_csv(r"D:\Personal Projects\customer_segmentation\data\dataset.csv")
+df = pd.read_csv(os.getcwd() + '\data\dataset.csv')
 
 """
 Data Preparation Steps
@@ -91,5 +92,4 @@ df_scaled.head()
 DF to CSV
 """
 # Create a CSV file
-filepath = r'D:\Personal Projects\customer_segmentation\data\processed_data.csv'
-df_scaled.to_csv(filepath, index=False)
+df_scaled.to_csv(os.getcwd() + '\data\processed_data.csv', index=False)
