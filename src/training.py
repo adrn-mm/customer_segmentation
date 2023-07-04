@@ -43,6 +43,7 @@ change_order = {0:1, 1:2, 2:3, 3:4, 4:5, 5:6}
 df_cleaned['Label'] = df_cleaned['Label'].replace(change_order)
 
 # saving cluster df to csv
+df_cleaned.to_csv(os.getcwd() + "\\data\output.csv" , index=False)
 output_directory = os.getcwd() + "\\data\clusters\\"
 for label in range(1, 7):
     cluster = df_cleaned[df_cleaned['Label'] == label]

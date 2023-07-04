@@ -3,6 +3,7 @@ import pandas as pd
 import re
 from sklearn. preprocessing import StandardScaler
 import os
+import datetime
 
 # Import Dataset
 df = pd.read_csv(os.getcwd() + '\data\dataset.csv')
@@ -19,7 +20,7 @@ df['TransactionDate'] = pd.to_datetime(df['TransactionDate'], format = '%d/%m/%y
 # Creating first and last transaction columns
 df['TransactionDateFirst'] = df['TransactionDate'] # to calculate the minimum (first transaction)
 df['TransactionDateLast'] = df['TransactionDate'] # to calculate the maximum (last transaction)
-df['CustomerAge'] = df['TransactionDate'].dt.year - df['CustomerDOB'].dt.year
+df['CustAge'] = datetime.datetime.now().year - df['CustomerDOB'].dt.year
 
 # Creating MRF dataframe
 MRF_df = df.groupby("CustomerID").agg({
@@ -28,7 +29,7 @@ MRF_df = df.groupby("CustomerID").agg({
     "CustLocation":"first",
     "CustAccountBalance"  : "mean",
     "TransactionAmount (INR)" : "mean",
-    "CustomerAge" : "median",
+    "CustAge" : "median",
     "TransactionDateFirst":"min",
     "TransactionDateLast":"max",
     "TransactionDate":"median"
@@ -65,7 +66,7 @@ Data Preprocessing Steps
 
 # Handling missing values
 MRF_df["CustGender"].fillna(MRF_df["CustGender"].mode()[0], inplace=True)
-MRF_df["CustomerAge"].fillna(MRF_df["CustomerAge"].median(), inplace=True)
+MRF_df["CustAge"].fillna(MRF_df["CustAge"].median(), inplace=True)
 MRF_df["CustAccountBalance"].fillna(MRF_df["CustAccountBalance"].median(), inplace=True)
 
 # Encode categorical data
